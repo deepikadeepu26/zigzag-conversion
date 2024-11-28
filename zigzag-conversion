@@ -1,0 +1,35 @@
+char* convert(char* s, int numRows) {
+    int len = strlen(s);
+    if(len==1 || numRows==1) return s;
+    char** retA = (char**)malloc(sizeof(char*)*(numRows));
+    for(int i=0; i<numRows; i++)
+    {
+        retA[i] = (char*)malloc(sizeof(char)*len);
+        retA[i][0] = '\0';
+    }
+    int dir = false;
+    int j=0, l;
+    for(int i=0; i<len; i++)
+    {
+        if(j==0 || j==numRows-1) dir  = !dir;
+        
+        l = strlen(retA[j]);
+        retA[j][l] = s[i];
+        retA[j][l+1] = '\0';
+
+        if(dir)
+        {
+            j++;
+        }
+        else
+        {
+            j--;
+        }
+    }
+    s[0] = '\0';
+    for(int i=0; i<numRows; i++)
+    {
+        strcpy(s+strlen(s),retA[i]);
+    }
+    return s;
+}
